@@ -16,11 +16,14 @@
             console.log('WebSocket Client Connected');
             ws.send('Hi this is web client.');
         };
-        flag =0;
+        flag =1;
         ws.onmessage = function(e) {
+            console.log(e);
           if(flag){
-              console.log(e.data);
-              flag =1;
+              JSON.parse(e.data).result.map((a)=>{
+                  console.log(a);
+              })
+              flag =0;
           }else{
               console.log(e.data);
           }

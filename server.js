@@ -1038,16 +1038,15 @@ let data = [
 wsServer.on('request', function(request) {
     const connection = request.accept(null, request.origin);
     connection.on('message', function(message) {
-        let first = [];
+        let first = {"result":[]};
         let j = 50;
         data.map((e,i)=>{
             if(i<50){
-                first.push(JSON.stringify({"currency":"BTCUSD","rate":JSON.parse(e).rate,"timestamp":new Date() -j}));
+                first.result.push({"currency":"BTCUSD","rate":JSON.parse(e).rate,"timestamp":new Date() -j});
                 j--;
             }
         });
-        console.log(first[0]);
-        connection.send(first);
+        connection.send(JSON.stringify(first));
       let flag = 50;
       setInterval(() => {
     connection.send(JSON.stringify({"currency":"BTCUSD","rate":JSON.parse(data[flag]).rate,"timestamp":new Date()-flag}))
